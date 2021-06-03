@@ -17,6 +17,8 @@
 - 🐳   **Docker**   🐳 
 <img src="https://miro.medium.com/max/1000/1*E8IgOSkMTpBRs0w0-Zsx2g.gif" align="right" width="300" height="120">
 
+- Python version 3.7
+ 
  1. - _Create Dockerfile_ 
  2. - _Create docker-compose file_
  3. - _Build and push container_
