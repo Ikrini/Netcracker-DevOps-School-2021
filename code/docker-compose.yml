@@ -4,7 +4,7 @@ version: '3'
 services:
  bot:
    build: .
-   image: gcr.io/netcracker-devops/telebot33
+   image: gcr.io/netcracker-devops/telebot34
    restart: always
    ports:
      # Service will be accessible on the host at port 9090.
