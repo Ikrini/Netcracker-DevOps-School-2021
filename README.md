@@ -17,7 +17,7 @@
 - 🐳   **Docker**   🐳 
 <img src="https://miro.medium.com/max/1000/1*E8IgOSkMTpBRs0w0-Zsx2g.gif" align="right" width="300" height="120">
 
-- Python version 3.7
+- Python version 3.8
  
  1. - _Create Dockerfile_ 
  2. - _Create docker-compose file_
@@ -112,7 +112,7 @@ Build for continuous deployments. Fully managed. No infrastructure to manage: on
 deployed, Cloud Run manages your services so you can sleep well.
 ```
 
-2. - _Deploy our docker container in `CLOUR RUN`_
+2. - _Deploy our docker container in `CLOUD RUN`_
 
 ```console
 gcloud run deploy --image  gcr.io/netcracker-devops/telebot23
