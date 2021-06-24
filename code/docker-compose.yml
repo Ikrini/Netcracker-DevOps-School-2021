@@ -9,6 +9,7 @@ services:
    ports:
      # Service will be accessible on the host at port 9090.
      - "8080:${PORT:-8080}"
+   imagePullPolicy: Always
    environment:
       - TELEGRAM_BOT_TOKEN=1804011613:AAG1DqIdMqRiwCxgVTL_9kWzbp8ecJC3HmY
       - TELEGRAM_ADMIN_ID=xxx
