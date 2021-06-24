@@ -1,4 +1,4 @@
-ipeline {
+pipeline {
   environment {
     imagename = "gcr.io/netcracker-devops/telebot"
     registryCredential = 'my-project-gcr-credentials'
