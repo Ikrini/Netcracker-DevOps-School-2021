@@ -1,4 +1,4 @@
-pipeline {
+ipeline {
   environment {
     imagename = "gcr.io/netcracker-devops/telebot"
     registryCredential = 'my-project-gcr-credentials'
@@ -7,12 +7,7 @@ pipeline {
   }
   agent any
   stages {
-    stage('Cloning Git') {
-      steps {
-       git([url: 'git@github.com:Ikrini/Netcracker-DevOps-school-2021.git', branch: 'master', credentialsId: 'telebot-git-ssh'])
-
-      }
-    }
+  
     stage('Building image') {
        steps {
          script {
@@ -27,6 +22,7 @@ pipeline {
         }
       }
     }
+
     stage('Test') {
         steps {
             echo "Start of Stage Test"
@@ -42,7 +38,7 @@ pipeline {
             script {
              docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
                 dockerImage.push("$BUILD_NUMBER")
-                dockerImage.push('latest')
+//                dockerImage.push('latest')
             }
          }
      }
@@ -55,7 +51,7 @@ pipeline {
                    sh '''
                    pwd
                    ls -la
-                   docker-compose down && docker-compose build --pull && docker-compose up -d
+                   docker-compose down && docker-compose up -d
                    
                    
                    '''
