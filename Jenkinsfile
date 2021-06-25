@@ -38,7 +38,7 @@ pipeline {
             script {
              docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
                 dockerImage.push("$BUILD_NUMBER")
-//                dockerImage.push('latest')
+                dockerImage.push('latest')
             }
          }
      }
