@@ -1,0 +1,60 @@
+apiVersion : apps/v1
+kind: Deployment
+metadata:
+  name: telebot-deployment-autoscaling
+  labels:
+    app : telebot-deployment
+spec:
+  selector:
+    matchLabels:
+      project: test-telegram-bot
+  template:
+    metadata:
+      labels:
+        project: test-telegram-bot
+    spec:
+      containers:
+        - name : telebot
+          image: gcr.io/netcracker-devops/telebot:latest
+          ports:
+            - containerPort: 80
+
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: telebot-autoscaling
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v2beta1v1
+    kind: Deployment
+    name: telebot-deployment-autoscaling
+  minReplicas: 2
+  maxReplicas: 4
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      targetAverageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      targetAverageUtilization: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: telebot-autoscaling-pod-service
+  labels:
+     env  : test
+     owner: NetcrackerSchoolAlexTeam
+spec:
+  selector:
+    project: test-telegram-bot      
+  ports:
+    - name      : app-listener
+      protocol  : TCP
+      port      : 80  # Port on Load Balancer
+      targetPort: 80  # Port on Pod
+  type: LoadBalancer
