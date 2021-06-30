@@ -50,6 +50,9 @@ pipeline {
                    sh '''
                    pwd
                    ls -la
+                   kubectl get nodes
+                   kubectl get svc
+                   kubectl get deploy
                    kubectl apply -f deployment.yaml
                                      
                    '''
