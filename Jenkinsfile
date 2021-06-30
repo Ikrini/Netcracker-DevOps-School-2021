@@ -51,7 +51,7 @@ pipeline {
                    sh '''
                    pwd
                    ls -la
-//                   docker-compose down && docker-compose up -d
+                   docker-compose down && docker-compose images
                    
                    
                    '''
