@@ -28,7 +28,6 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
-            sh "python tests.py -v"
             echo "end of Stage Test"
             sh "pwd"
             sh "ls -la"
@@ -67,6 +66,7 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
+            sh "python tests.py -v"
             echo "end of Stage Test"
             sh "pwd"
             sh "ls -la"
