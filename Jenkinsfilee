@@ -44,11 +44,15 @@ pipeline {
      }
    }
    
-//   stage('Apply Kubernetes files') {
-//     withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://kubernetes.default/']) {
-//       sh 'kubectl apply -f deployment.yaml'
-//     }
-//   }
+   stage('Apply Kubernetes files') {
+       steps {
+            script {     
+                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://kubernetes.default/']) {
+                  sh 'kubectl apply -f deployment.yaml'
+           }
+        }
+     }
+   }
  
    stage('Continuous Deploy') {
        steps {
