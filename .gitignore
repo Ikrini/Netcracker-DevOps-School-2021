@@ -1,7 +1,6 @@
 # our
 venv
 .idea
-__pycache__
 logger.log
 debug.log
 
