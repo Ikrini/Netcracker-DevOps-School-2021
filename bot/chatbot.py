@@ -18,7 +18,6 @@ import subprocess
 # # our module
 from training import upfate_intense
 from logger import Logger
-from config import login, password, repo_url, branch
 
 
 def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
