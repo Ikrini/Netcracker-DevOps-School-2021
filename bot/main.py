@@ -2,6 +2,7 @@
 # telegram bot
 from aiogram.utils import executor
 from bot import BotTelegram
+from logger import Logger
 
 
 def main():
@@ -10,4 +11,9 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    try:
+        main()
+    except:
+        logger = Logger('main')
+        logger.warning()
+        logger.error()

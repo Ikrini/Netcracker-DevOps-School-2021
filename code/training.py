@@ -14,7 +14,6 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import SGD
 
 
-# directory check
 def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
     """
     :param name: dir name
