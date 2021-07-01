@@ -66,7 +66,7 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
-            sh tests.sh
+            sh /var/lib/jenkins/workspace/test_telebot/code/tests.sh
             echo "end of Stage Test"
             sh "pwd"
             sh "ls -la"
