@@ -48,7 +48,7 @@ pipeline {
        steps {
             script {     
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
-                  sh '''' 
+                  sh ''' 
                          kubectl delete -f deployment.yaml
                          kubectl get svc
                          kubectl apply -f deployment.yaml
@@ -71,7 +71,7 @@ pipeline {
 //                          kubectl get deploy
 //                          kubectl apply -f deployment.yaml
 //                                     
-//                  '''
+//                      '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
 //           }
 //       }
