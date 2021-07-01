@@ -47,7 +47,7 @@ pipeline {
    stage('Apply Kubernetes files') {
        steps {
             script {     
-                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://kubernetes.default/']) {
+                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
                   sh 'kubectl apply -f deployment.yaml'
            }
         }
