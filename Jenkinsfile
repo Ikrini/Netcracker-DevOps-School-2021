@@ -1,9 +1,9 @@
 pipeline {
   environment {
-    imagename = "gcr.io/netcracker-devops/telebot"
+    imagename = "gcr.io/netcracker-devops/telekuber"
     registryCredential = 'my-project-gcr-credentials'
     dockerImage = ''
-    project_name = "test_telebot"
+    project_name = "test_telebot_kubernet"
   }
   agent any
   stages {
@@ -12,9 +12,10 @@ pipeline {
        steps {
          script {
              sh '''
-             pwd
-             ls -la
-             '''
+                pwd
+                ls -la
+                
+                '''
              dir("code") {
                  
              dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
@@ -44,22 +45,51 @@ pipeline {
      }
    }
    
-   stage('Continuous Deploy') {
+   stage('Continuous Deploy / docker-compose') {
        steps {
            script {
                dir("code") {
                    sh '''
-                   pwd
-                   ls -la
-                   docker-compose down && docker-compose images
+                         pwd
+                         ls -la
+                         docker-compose down && docker-compose up -d     
                    
-                   
-                   '''
+                      '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
                }
            }
        }
    }
+   
+   stage('Test') {
+        steps {
+            echo "Start of Stage Test"
+            echo "Project name is ${project_name}"
+            echo "end of Stage Test"
+            sh "pwd"
+            sh "ls -la"
+        }
+    }
+   
+   stage('Continuous Deploy to K8s / Apply  Kubernetes files') {
+       steps {
+            script {     
+                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
+                  sh ''' 
+                         kubectl delete -f deployment.yaml
+                         kubectl get svc
+                         kubectl get pods
+                         kubectl apply -f deployment.yaml
+                         kubectl get svc
+                         kubectl get deploy
+                         kubectl get pods
+                         
+                     '''
+           }
+        }
+     }
+   }
+   
    
  }
 }
