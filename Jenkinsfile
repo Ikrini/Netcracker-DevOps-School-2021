@@ -52,6 +52,7 @@ pipeline {
                    sh '''
                          pwd
                          ls -la
+                         docker-compose stop
                          docker-compose down && docker-compose up -d     
                    
                       '''
