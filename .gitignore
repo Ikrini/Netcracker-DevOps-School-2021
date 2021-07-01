@@ -3,6 +3,9 @@ venv
 .idea
 logger.log
 debug.log
+*.rar
+*.pkl
+*.h5
 
 # Byte-compiled  optimized  DLL files
 __pycache__
