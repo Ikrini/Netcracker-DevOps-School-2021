@@ -44,32 +44,34 @@ pipeline {
      }
    }
    
-   stage('Apply Kubernetes files') {
+   stage('Continuous Deploy / Apply  Kubernetes files') {
        steps {
             script {     
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
                   sh 'kubectl apply -f deployment.yaml'
+                  sh 'kubectl get svc'
+                  sh 'kubectl get deploy'
            }
         }
      }
    }
  
-   stage('Continuous Deploy') {
-       steps {
-           script {
-                   sh '''
-                   pwd
-                   ls -la
-                   kubectl get nodes
-                   kubectl get svc
-                   kubectl get deploy
-                   kubectl apply -f deployment.yaml
-                                     
-                   '''
+//   stage('Continuous Deploy') {
+//       steps {
+//           script {
+//                   sh '''
+//                   pwd
+//                   ls -la
+//                   kubectl get nodes
+//                   kubectl get svc
+//                   kubectl get deploy
+//                   kubectl apply -f deployment.yaml
+//                                     
+//                  '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
-           }
-       }
-   }
+//           }
+//       }
+//   }
    
  }
 }
