@@ -38,7 +38,7 @@ class BotTelegram(object):
             await self.bot.send_message(message.from_user.id, "Hello!\nWrite me something")
 
         @self.disp.message_handler(commands=['help'])
-        async def process_start_command(message: types.Message):
+        async def process_help_command(message: types.Message):
             mes = 'Chat bot with training function for DevOps course project\n\n' \
                   'start - Beginning of work\n' \
                   'help - Command help display\n' \
@@ -71,13 +71,14 @@ class BotTelegram(object):
 
             await FormTraining.training.set()
             mes = 'Input format:\n' \
-                  '<language>:<tag>:<pat or res (pat - pattern, res - response)>:<text>\n' \
+                  '<language>:<tag>:<pat or res (pat - pattern (man writes), res - response (the bot answers))>:' \
+                  '<text>\n' \
                   'Example 1:\n' \
                   'en:greeting:pat:whats up\n' \
                   'Example 2:\n' \
                   'en:greeting:res:Hey!\n' \
                   'Example 3:\n' \
-                  'ru:вот такой тег:res:вот такой текст!\n'
+                  'ru:возраст:res:мне 20 лет\n'
             await self.bot.send_message(message.from_user.id, mes)
 
         @self.disp.message_handler(state=FormTraining.training)
@@ -91,8 +92,7 @@ class BotTelegram(object):
             Start learning
             """
 
-            self.chat_bot.training()
-            await self.bot.send_message(message.from_user.id, 'Done!')
+            await self.bot.send_message(message.from_user.id, self.chat_bot.training())
 
         @self.disp.message_handler()
         async def echo_message(message: types.Message):

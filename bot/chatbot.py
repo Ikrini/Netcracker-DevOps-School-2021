@@ -1,7 +1,7 @@
 # # library
 import os
-import traceback
 
+# for train
 import random
 import json
 import pickle
@@ -12,9 +12,13 @@ from nltk.stem import WordNetLemmatizer
 
 from tensorflow.keras.models import load_model
 
+# for push intense.json to the github
+import subprocess
 
 # # our module
 from training import upfate_intense
+from logger import Logger
+from config import login, password, repo_url, branch
 
 
 def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
@@ -123,11 +127,14 @@ class ChatBot(object):
         """
         start training
         """
+
         try:
             upfate_intense()
             return 'Done!'
         except Exception as e:
-            return f'Error: {traceback.format_exc()}'
+            logger = Logger('training')
+            logger.error()
+            return logger.warning()
 
     def change_language(self, language) -> str:
         """
