@@ -66,7 +66,6 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
-            pathToTests = getProperty(pwd)
             sh tests.sh
             echo "end of Stage Test"
             sh "pwd"
