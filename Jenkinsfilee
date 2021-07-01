@@ -56,7 +56,6 @@ pipeline {
                    sh '''
                    pwd
                    ls -la
-//                   gcloud container clusters create koro --num-nodes=1 \ --zone us-central1-a
                    kubectl get nodes
                    kubectl get svc
                    kubectl get deploy
