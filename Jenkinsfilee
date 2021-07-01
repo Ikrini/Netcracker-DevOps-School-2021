@@ -1,6 +1,6 @@
 pipeline {
   environment {
-    imagename = "gcr.io/netcracker-devops/telebot34"
+    imagename = "gcr.io/netcracker-devops/telekuber"
     registryCredential = 'my-project-gcr-credentials'
     dockerImage = ''
     project_name = "test_telebot_kubernet"
