@@ -66,7 +66,7 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
-            cwd=$(pwd)
+            sh cwd=$(pwd)
             sh $cwd/tests.sh
             echo "end of Stage Test"
             sh "pwd"
