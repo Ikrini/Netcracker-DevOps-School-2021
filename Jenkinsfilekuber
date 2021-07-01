@@ -61,7 +61,7 @@ pipeline {
        }
    }
    
-   stage('Test') {
+   stage('Test1') {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
