@@ -86,7 +86,7 @@ pipeline {
             script {     
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
                   sh ''' 
-                         kubectl delete -f deployment.yaml
+//                         kubectl delete -f deployment.yaml
                          kubectl get svc
                          kubectl get pods
                          kubectl apply -f deployment.yaml
