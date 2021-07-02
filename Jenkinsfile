@@ -54,7 +54,7 @@ pipeline {
                          ls -la
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
-                   
+                         pwd                
                       '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
                }
