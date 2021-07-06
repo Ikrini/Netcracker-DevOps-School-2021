@@ -71,7 +71,7 @@ pipeline {
 
             dir("code") {
               
-                 sh "python3 ./tests.py"
+//                 sh "python3 ./tests.py"
 //               sh "./tests.py"          
 
             }
