@@ -1,6 +1,7 @@
 # # library
 import unittest
 import os
+import json
 
 # # modules
 from config import path_to_dir
@@ -17,6 +18,22 @@ class TestForJenkins(unittest.TestCase):
             if not exist:
                 print(f'FILE NOT EXIST: {name} ({path})')
             self.assertTrue(exist)
+
+    def test_structure_intense_json(self):
+        with open('src/intense.json', 'r') as file:
+            full_intents = json.load(file)
+
+        languages = full_intents.keys()
+        for language in languages:
+            intense = full_intents[language]
+            self.assertTrue('intents' in intense.keys())
+
+            intense = intense['intents']
+            for element in intense:
+                keys = element.keys()
+                headers = ('tag', 'patterns', 'responses')
+                for header in headers:
+                    self.assertTrue(header in keys)
 
 
 if __name__ == "__main__":
