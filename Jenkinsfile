@@ -1,9 +1,10 @@
 pipeline {
   environment {
-    imagename = "gcr.io/netcracker-devops/telebot"
+    imagename          = "gcr.io/netcracker-devops/telebot"
     registryCredential = 'my-project-gcr-credentials'
-    dockerImage = ''
-    project_name = "test_telebot"
+    ConfigPy           =  credentials('config.py') 
+    dockerImage        = ''
+    project_name       = "test_telebot"
   }
   agent any
   stages {
@@ -16,10 +17,11 @@ pipeline {
                 ls -la
                 
                 '''
-             dir("code") {
-                 
-             dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
-             }
+                 withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+                    dir("code") {         
+                     dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
+                    }
+                }
         }
       }
     }
