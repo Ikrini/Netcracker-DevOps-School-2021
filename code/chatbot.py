@@ -16,7 +16,7 @@ from tensorflow.keras.models import load_model
 import subprocess
 
 # # our module
-from training import upfate_intense
+from training import update_intense
 from logger import Logger
 
 
@@ -38,7 +38,7 @@ def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
 class ChatBot(object):
 
     def __init__(self):
-        upfate_intense()
+        update_intense()
 
         self.lemmatizer = WordNetLemmatizer()
         self.full_intents = json.loads(open('src/intense.json').read())
@@ -56,6 +56,7 @@ class ChatBot(object):
         """
         :return: get string with our languages. Example: 'en, ru'
         """
+
         message = ''
         for language in self.languages:
             message += f'{language}, '
@@ -128,7 +129,7 @@ class ChatBot(object):
         """
 
         try:
-            upfate_intense()
+            update_intense()
             return 'Done!'
         except Exception as e:
             logger = Logger('training')

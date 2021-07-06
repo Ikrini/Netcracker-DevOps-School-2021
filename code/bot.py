@@ -13,7 +13,10 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
 # # our module
 # telegram's api token
-from config import token
+try:
+    from config import token
+except ImportError:
+    from config_k8s import token
 from chatbot import ChatBot
 
 
@@ -33,20 +36,18 @@ class BotTelegram(object):
 
         self.chat_bot = ChatBot()
 
-        @self.disp.message_handler(commands=['start'])
-        async def process_start_command(message: types.Message):
-            await self.bot.send_message(message.from_user.id, "Hello!\nWrite me something")
-
-        @self.disp.message_handler(commands=['help'])
+        @self.disp.message_handler(commands=['start', 'help'])
         async def process_help_command(message: types.Message):
             mes = 'Chat bot with training function for DevOps course project\n\n' \
-                  'start - Beginning of work\n' \
-                  'help - Command help display\n' \
-                  'changelanguage - Change the language of communication\n' \
-                  'addtraining - Add value for learning\n' \
-                  'training - Start training'
+                  '/start - Beginning of work\n' \
+                  '/help - Command help display\n\n' \
+                  '*Bot Settings*:' \
+                  '/changelanguage - Change the language of communication\n\n' \
+                  '*Train*:' \
+                  '/addtraining - Add value for learning\n' \
+                  '/training - Start training'
 
-            await message.bot.send_message(message.from_user.id, mes)
+            await message.bot.send_message(message.from_user.id, mes, parse_mode= 'Markdown')
 
         @self.disp.message_handler(commands=['changelanguage'])
         async def change_languages(message: types.Message):
@@ -55,7 +56,8 @@ class BotTelegram(object):
             """
 
             await FormLanguages.language.set()
-            await self.bot.send_message(message.from_user.id, f'Our language: {self.chat_bot.get_languages()}\n'
+            await self.bot.send_message(message.from_user.id, f'Active language: {self.chat_bot.language}\n'
+                                                              f'Our language: {self.chat_bot.get_languages()}\n'
                                                               f'What language do you need?')
 
         @self.disp.message_handler(state=FormLanguages.language)

@@ -13,6 +13,9 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import SGD
 
+# # our module
+from config import path_to_dir
+
 
 def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
     """
@@ -29,12 +32,26 @@ def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
     return return_path
 
 
+def write_json(path, name, data) -> None:
+    """
+    :param path: путь до директории с файлом
+    :param name: название файла
+    :param data: данные, которые нужно записать
+    :return:
+    """
+
+    with open('{}/{}.json'.format(path, name), 'w') as file:
+        json.dump(data, file, indent=2, ensure_ascii=True)
+
+
 # if it gives an error
 nltk.download('punkt')
 nltk.download('wordnet')
 
 
-def upfate_intense() -> str:
+def update_intense() -> str:
+    write_json(path_to_dir, 'trained', False)
+
     lemmatizer = WordNetLemmatizer()
 
     tmp_intents = json.loads(open('src/intense.json').read())
@@ -70,7 +87,7 @@ def upfate_intense() -> str:
                 if intent['tag'] not in classes:
                     classes.append(intent['tag'])
 
-        words = [lemmatizer.lemmatize(word) for word in words if word not in ignore_letters]
+        words = [lemmatizer.lemmatize(word.lower()) for word in words if word not in ignore_letters]
         words = sorted(set(words))
 
         classes = sorted(set(classes))
@@ -110,5 +127,7 @@ def upfate_intense() -> str:
 
         hist = model.fit(np.array(train_x), np.array(train_y), epochs=200, batch_size=5, verbose=1)
         model.save(f'{path}/chatbotmodel_{language}.h5', hist)
+
+    write_json(path_to_dir, 'trained', True)
 
     return 'Done!'
