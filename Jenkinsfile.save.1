@@ -54,7 +54,7 @@ pipeline {
                          ls -la
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
-                         pwd                
+                   
                       '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
                }
@@ -66,15 +66,12 @@ pipeline {
         steps {
             echo "Start of Stage Test"
             echo "Project name is ${project_name}"
-
+            
             dir("code") {
-              
-                 sh "python3 ./tests.py"
-//               sh "./tests.py"          
+              sh "test.sh"
+            }  
 
-            }
-
-//            sh /var/lib/jenkins/workspace/test_telebot/code/tests.sh
+            //sh /var/lib/jenkins/workspace/test_telebot/code/tests.sh
             echo "end of Stage Test"
             sh "pwd"
             sh "ls -la"
@@ -86,6 +83,7 @@ pipeline {
             script {     
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
                   sh ''' 
+                         kubectl delete -f deployment.yaml
                          kubectl get svc
                          kubectl get pods
                          kubectl apply -f deployment.yaml
