@@ -19,14 +19,14 @@ pipeline {
                 ls -la
                  
                 '''
-//withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+                withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
                   dir("code") { 
                            
                   sh "cp ${ConfigPy}  /usr/src/app"
                      dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
-                    }
-//}
+                  }
+               }
         }
       }
     }
