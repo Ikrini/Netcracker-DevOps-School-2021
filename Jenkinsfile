@@ -8,7 +8,7 @@ pipeline {
   }
 
   agent { 
-    dockerfile true
+    Dockerfile true
    } 
 
   stages {
