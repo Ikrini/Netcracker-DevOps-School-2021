@@ -7,7 +7,7 @@ pipeline {
     project_name       = "test_telebot"
   }
 
-  agent dockerfile 
+  agent any 
 
   stages {
   
