@@ -6,7 +6,11 @@ pipeline {
     dockerImage        = ''
     project_name       = "test_telebot"
   }
-  agent any
+
+  agent { 
+    dockerfile true
+   } 
+
   stages {
   
     stage('Building image') {
@@ -16,12 +20,16 @@ pipeline {
                 pwd
                 ls -la
                 
+                cp ${ConfigPy}  /usr/src/app
+ 
                 '''
-                 withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
-                    dir("code") {         
+//withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+                   
+                  dir("code") {         
+                   
                      dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
                     }
-                }
+//}
         }
       }
     }
