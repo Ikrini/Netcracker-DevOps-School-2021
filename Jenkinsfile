@@ -23,7 +23,7 @@ pipeline {
                    
                   dir("code") { 
                            
-                  sh "cp ${ConfigPy}  /usr/src/app"
+                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"
                      dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
                   }
                }
