@@ -67,7 +67,7 @@ pipeline {
                          docker ps -a
                          docker container stop configpy 
                          docker rm configpy    
-                         docker run -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy  gcr.io/netcracker-devops/telebot                         
+                         docker run -d -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy  gcr.io/netcracker-devops/telebot                         
 #                         docker run --mount type=volume,source=configpy,destination=/usr/src/app                                 
 
                          docker-compose stop
