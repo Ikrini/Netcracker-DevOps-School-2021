@@ -64,7 +64,7 @@ pipeline {
                          ls -la
                       
 #                         cp ${ConfigPy}   /var/lib/jenkins/  
-                         docker run -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy -t telebot:latest                         
+                         docker run -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy -t gcr.io/netcracker-devops/telebot:latest                         
 
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
