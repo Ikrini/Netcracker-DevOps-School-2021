@@ -63,7 +63,9 @@ pipeline {
                          pwd
                          ls -la
                       
-#                         cp ${ConfigPy}   /var/lib/jenkins/  
+#                        cp ${ConfigPy}   /var/lib/jenkins/
+                         docker ps -a
+                         docker rm configpy    
                          docker run -d -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy  gcr.io/netcracker-devops/telebot:latest                         
 
                          docker-compose stop
