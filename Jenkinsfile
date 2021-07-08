@@ -65,8 +65,8 @@ pipeline {
                       
 #                        cp ${ConfigPy}   /var/lib/jenkins/
                          docker ps -a
-#                         docker container stop configpy 
-#                         docker rm configpy    
+                         docker container stop configpy 
+                         docker rm configpy    
                          docker  -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy  gcr.io/netcracker-devops/telebot:latest                         
 #                         docker-container run --mount source=                                   
 
