@@ -63,8 +63,8 @@ pipeline {
                          pwd
                          ls -la
                       
-                         cp ${ConfigPy}  /var/lib/jenkins/  
-                         
+                         cp ${ConfigPy}   /var/lib/jenkins/  
+                         docker run -d -v /var/lib/jenkins/config.py:/usr/src/app --name configpy                        
 
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
