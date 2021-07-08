@@ -19,14 +19,14 @@ pipeline {
                 ls -la
                  
                 '''
-                withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+//                withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
-                  dir("code") { 
-                           
+                  dir("code") {  
+       
 //                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
                      dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
                   }
-               }
+//               }
         }
       }
     }
@@ -55,16 +55,24 @@ pipeline {
    stage('Continuous Deploy / docker-compose') {
        steps {
            script {
-               dir("code") {
+             
+              withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+                dir("code") {
+
                    sh '''
                          pwd
                          ls -la
+                      
+                         cp ${ConfigPy}  /var/lib/jenkins/  
+//                         docker run -d \ -v /var/lib/jenkins/ 
+
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
                          pwd                
                       '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
-               }
+                }
+              }
            }
        }
    }
