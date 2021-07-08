@@ -64,7 +64,7 @@ pipeline {
                          ls -la
                       
                          cp ${ConfigPy}  /var/lib/jenkins/  
-//                         docker run -d \ -v /var/lib/jenkins/ 
+                         
 
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
