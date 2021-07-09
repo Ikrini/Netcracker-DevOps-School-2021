@@ -61,7 +61,7 @@ pipeline {
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
 
-                def filePath = "/var/lib/jankins/workspace/test_telebot/"
+//                def filePath = "/var/lib/jankins/workspace/test_telebot/"
                
                  
                 dir("code") {
