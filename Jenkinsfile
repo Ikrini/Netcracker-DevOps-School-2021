@@ -61,12 +61,14 @@ pipeline {
                    sh "./checker.sh"
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+
+                   sh "./checker.sh"
+                 
                 dir("code") {
 
                    sh '''
                          pwd
                          ls -la
-                      
                          echo ${WORKSPACE}
 #                         cp ${ConfigPy}   /var/lib/jenkins/
                          docker ps -a
