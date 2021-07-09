@@ -8,4 +8,6 @@ if [ -f "$FILE" ]; then
     echo "secret file $FILE  exist."
 else
     echo "secret file $FILE does not exist."
+    cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot/
+    echo "secret file has been copied"
 fi
