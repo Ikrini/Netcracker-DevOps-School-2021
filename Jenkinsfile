@@ -58,11 +58,11 @@ pipeline {
                         
                    sh "pwd" 
                    sh "ls"
-//                   sh "./checker.sh"
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
 
-                   sh "./checker.sh"
+                def filePath = "/var/lib/jankins/workspace/test_telebot/"
+               
                  
                 dir("code") {
 
@@ -70,7 +70,7 @@ pipeline {
                          pwd
                          ls -la
                          echo ${WORKSPACE}
-#                         cp ${ConfigPy}   /var/lib/jenkins/
+                         cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot/
                          docker ps -a
 #                         docker container stop configpy 
 #                         docker rm configpy    
