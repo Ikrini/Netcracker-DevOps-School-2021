@@ -62,7 +62,8 @@ pipeline {
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
 
 //                def filePath = "/var/lib/jankins/workspace/test_telebot/"
-               
+
+                   sh "./checker.sh"               
                  
                 dir("code") {
 
