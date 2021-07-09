@@ -63,7 +63,7 @@ pipeline {
                          pwd
                          ls -la
                       
-                         echo ${WORKSPACE}
+#                         echo ${WORKSPACE}
 #                         cp ${ConfigPy}   /var/lib/jenkins/
                          docker ps -a
 #                         docker container stop configpy 
