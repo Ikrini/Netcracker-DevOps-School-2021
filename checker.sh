@@ -7,10 +7,10 @@ echo ${WORKSPACE}
 if [ -f "$FILE" ]; then
     echo "secret file $FILE  exist."
     rm $FILE
-    cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot
+    cat ${ConfigPy} >> $FILE
 else
     echo "secret file $FILE does not exist."
-    cat ${ConfigPy}
-    cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot
+    cat ${FILE}
+    cat ${ConfigPy} >> $FILE
     echo "secret file has been copied"
 fi
