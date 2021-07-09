@@ -57,6 +57,8 @@ pipeline {
            script {
                         
                    sh "pwd" 
+                   sh "ls"
+                   ch "./checker.sh"
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                 dir("code") {
@@ -65,7 +67,7 @@ pipeline {
                          pwd
                          ls -la
                       
-#                         echo ${WORKSPACE}
+                         echo ${WORKSPACE}
 #                         cp ${ConfigPy}   /var/lib/jenkins/
                          docker ps -a
 #                         docker container stop configpy 
