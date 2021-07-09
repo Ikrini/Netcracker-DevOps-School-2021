@@ -55,7 +55,9 @@ pipeline {
    stage('Continuous Deploy / docker-compose') {
        steps {
            script {
-             
+                        
+                   sh "pwd" 
+
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                 dir("code") {
 
