@@ -58,7 +58,7 @@ pipeline {
                         
                    sh "pwd" 
                    sh "ls"
-                   ch "./checker.sh"
+                   sh "./checker.sh"
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                 dir("code") {
