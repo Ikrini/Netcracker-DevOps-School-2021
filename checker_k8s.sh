@@ -1,16 +1,16 @@
 #!/bin/sh
 
-FILE=/var/lib/jenkins/workspace/test_telebot/config_k8s.py
+FILEK=/var/lib/jenkins/workspace/test_telebot/config_k8s.py
 
 echo ${WORKSPACE}
 
-if [ -f "$FILE" ]; then
+if [ -f "$FILEK" ]; then
     echo "secret file $FILE  exist."
-    rm $FILE
-    cat ${ConfigPy} >> $FILE
+    rm $FILEK
+    cat ${Config_k8sPy} >> $FILEK
 else
     echo "secret file $FILE does not exist."
-    cat ${FILE}
-    cat ${ConfigPy} >> $FILE
+    cat ${FILEK}
+    cat ${Config_k8sPy} >> $FILEK
     echo "secret file has been copied"
 fi
