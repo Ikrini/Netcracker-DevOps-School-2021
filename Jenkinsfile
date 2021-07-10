@@ -6,6 +6,7 @@ pipeline {
     ConfigPy           =  credentials('config.py')
     Config_k8sPy       =  credentials('config_k8s.py') 
     dockerImage        = ''
+    dockerImagek       = ''
     project_name       = "test_telebot"
   }
 
@@ -27,8 +28,8 @@ pipeline {
                      dir("code") {  
        
 //                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
-                     dockerImage = docker.build imagename + ":$BUILD_NUMBER"
-                     dockerImage = docker.build imagenamek + ":$BUILD_NUMBER" 
+                     dockerImage  = docker.build imagename + ":$BUILD_NUMBER"
+                     dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
                      }
 //                }
         }
@@ -51,6 +52,7 @@ pipeline {
              docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
+                dockerImagek.push('latest')
             }
          }
      }
