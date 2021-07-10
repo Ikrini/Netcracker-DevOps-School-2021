@@ -16,6 +16,7 @@ pipeline {
          script {
              sh '''
                 pwd
+                whoami
                 ls -la
                  
                 '''
@@ -71,7 +72,7 @@ pipeline {
                          pwd
                          ls -la
                          echo ${WORKSPACE}
-                         cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot/
+#                         cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot/
                          docker ps -a
 #                         docker container stop configpy 
 #                         docker rm configpy    
