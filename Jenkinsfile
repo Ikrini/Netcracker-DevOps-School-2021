@@ -1,6 +1,7 @@
 pipeline {
   environment {
     imagename          = "gcr.io/netcracker-devops/telebot"
+    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
     registryCredential = 'my-project-gcr-credentials'
     ConfigPy           =  credentials('config.py')
     Config_k8sPy       =  credentials('config_k8s.py') 
@@ -23,12 +24,13 @@ pipeline {
                 '''
 //                withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
-                  dir("code") {  
+                     dir("code") {  
        
 //                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
-                     dockerImage = docker.build imagename + ":$BUILD_NUMBER" 
-                  }
-//               }
+                     dockerImage = docker.build imagename + ":$BUILD_NUMBER"
+                     dockerImage = docker.build iamgenamek + ":$BUILD_NUMBER" 
+                     }
+//                }
         }
       }
     }
