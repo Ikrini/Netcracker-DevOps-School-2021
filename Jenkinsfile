@@ -28,7 +28,7 @@ pipeline {
        
 //                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
                      dockerImage = docker.build imagename + ":$BUILD_NUMBER"
-                     dockerImage = docker.build iamgenamek + ":$BUILD_NUMBER" 
+                     dockerImage = docker.build imagenamek + ":$BUILD_NUMBER" 
                      }
 //                }
         }
