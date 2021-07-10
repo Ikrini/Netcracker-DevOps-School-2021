@@ -2,7 +2,8 @@ pipeline {
   environment {
     imagename          = "gcr.io/netcracker-devops/telebot"
     registryCredential = 'my-project-gcr-credentials'
-    ConfigPy           =  credentials('config.py') 
+    ConfigPy           =  credentials('config.py')
+    Config_k8sPy       =  credentials('config_k8s.py') 
     dockerImage        = ''
     project_name       = "test_telebot"
   }
@@ -112,8 +113,14 @@ pipeline {
    stage('Continuous Deploy to K8s / Apply  Kubernetes files') {
        steps {
             script {     
+ 
+               withCredentials([file(credentialsId: 'config_k8s.py', variable: 'FILE')]) {                     
+                
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
+
                   sh ''' 
+                         ./checker_k8s.sh
+                           
                          kubectl get svc
                          kubectl get pods
                          kubectl apply -f deployment.yaml
@@ -122,7 +129,9 @@ pipeline {
                          kubectl get pods
                          
                      '''
-           }
+                 }
+              }
+
         }
      }
    }
