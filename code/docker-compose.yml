@@ -15,8 +15,8 @@ services:
       - TELEGRAM_ADMIN_ID=xxx
    volumes:
       - ./src:/src
-      - /var/lib/jenkins/workspace/test_telebot/config.py:/usr/src/app/config.py
-#      - /var/run/docker.sock:/var/run/docker.sock
+#      - /var/lib/jenkins/workspace/test_telebot/config.py:/usr/src/app/config.py
+      - /var/run/docker.sock:/var/run/docker.sock
    tty: true
    environment:
      # /run/docs/reference/container-contract
