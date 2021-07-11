@@ -21,11 +21,11 @@ spec:
             - containerPort: 80
           volumeMounts:
              - name: config-kuber
-               mountPath: /usr/src/app/config_k8s.py                           
+               mountPath: /usr/src/app/config.py                           
       volumes:
         - name: config-kuber
           hostPath:
-              path: /var/lib/jenkins/workspace/config_k8s.py
+              path: /var/lib/jenkins/workspace/test_telebot/config.py
   #        persistentVolumeClaim:
   #            claimName: config-kuber-claim
     #   configMap:
