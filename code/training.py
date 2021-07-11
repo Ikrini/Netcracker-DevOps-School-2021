@@ -14,7 +14,10 @@ from tensorflow.keras.layers import Dense, Dropout
 from tensorflow.keras.optimizers import SGD
 
 # # our module
-from config import path_to_dir
+try:
+    from config import path_to_dir
+except ImportError:
+    from config_k8s import path_to_dir
 
 
 def check_dir(name, our_path=os.path.dirname(os.path.abspath(__file__))) -> str:
