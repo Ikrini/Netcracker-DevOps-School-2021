@@ -4,7 +4,7 @@ pipeline {
 //    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
     registryCredential = 'my-project-gcr-credentials'
     ConfigPy           =  credentials('config.py')
-//    Config_k8sPy       =  credentials('config_k8s.py') 
+    Config_k8sPy       =  credentials('config_k8s.py') 
     dockerImage        = ''
 //   dockerImagek       = ''
     project_name       = "test_telebot"
@@ -85,7 +85,7 @@ pipeline {
 #                         docker run --mount type=volume,source=configpy,destination=/usr/src/app                                 
 
                          docker-compose stop
-                         docker-compose down && docker-compose up -d     
+#                         docker-compose down && docker-compose up -d     
                          pwd                
                       '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
@@ -123,7 +123,7 @@ pipeline {
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
 
                   sh ''' 
-#                         ./checker_k8s.sh
+                         ./checker_k8s.sh
                            
                          kubectl get svc
                          kubectl get pods
