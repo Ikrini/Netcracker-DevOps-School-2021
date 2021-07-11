@@ -17,23 +17,55 @@ spec:
         - name : telebot
           image: gcr.io/netcracker-devops/telebot:latest
           imagePullPolicy: Always
+          command: [ "/bin/sh", "-c", "cp /var/lib/jenkins/workspace/test_telebot/config_k8s.py /usr/src/app/config_k8s.py" ]
           ports:
             - containerPort: 80
           volumeMounts:
-             - name: config-kuber
-               mountPath: /usr/src/app/config.py                           
+            - name: my-config
+              mountPath: /usr/src/app/config_k8s.py
       volumes:
-        - name: config-kuber
-          hostPath:
-              path: /var/lib/jenkins/workspace/test_telebot/config.py
-  #        persistentVolumeClaim:
-  #            claimName: config-kuber-claim
-    #   configMap:
-    #      name: vol-config-tweetor-api
-      #  volumes:
-      #  - name: conf-kub
-      #   emptyDir: {}
+        - name: my-config
+          configMap:
+              name: my-config
+      restartPolicy: Always
 
+
+    #        - mountPath: /usr/src/app/config_k8s.py
+    #          name: data
+    #        - mountPath: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+    #          name: config
+    #  initContainers:
+    #    - name: copy
+    #      image: gcr.io/netcracker-devops/telebot:latest
+    #      command: ["bash", "-c", "cp /var/lib/jenkins/workspace/test_telebot/config_k8s.py /usr/src/app/"]
+    #      volumeMounts:
+    #        - mountPath: /usr/src/app/
+    #          name: config
+    # volumes:
+    # - name: data
+    #   emptyDir: {}
+    #    - name: config
+    #      configMap:
+    #        name: kuberex-config
+    #       items:
+    #       - key: kuber-config
+    #         path: config_k8s.py
+              
+
+
+
+#          volumeMounts:
+#             - name: kube-config
+#               mountPath: /usr/src/app/config_k8s.py                           
+#      volumes:
+#        - name: kube-config
+  #        configMap:
+  #             name: kube-config
+  #    restartPolicy: Always
+#          hostPath:
+#              path: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+#              type: File
+        
 ---
 apiVersion: autoscaling/v2beta1
 kind: HorizontalPodAutoscaler
