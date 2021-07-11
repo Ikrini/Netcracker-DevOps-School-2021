@@ -1,12 +1,12 @@
 pipeline {
   environment {
     imagename          = "gcr.io/netcracker-devops/telebot"
-#    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
+//    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
     registryCredential = 'my-project-gcr-credentials'
     ConfigPy           =  credentials('config.py')
-#    Config_k8sPy       =  credentials('config_k8s.py') 
+//    Config_k8sPy       =  credentials('config_k8s.py') 
     dockerImage        = ''
- #   dockerImagek       = ''
+//   dockerImagek       = ''
     project_name       = "test_telebot"
   }
 
@@ -29,7 +29,7 @@ pipeline {
        
 //                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
                      dockerImage  = docker.build imagename + ":$BUILD_NUMBER"
-#                     dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
+//                     dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
                      }
 //                }
         }
@@ -52,7 +52,7 @@ pipeline {
              docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
                 dockerImage.push("$BUILD_NUMBER")
                 dockerImage.push('latest')
-#                dockerImagek.push('latest')
+//                dockerImagek.push('latest')
             }
          }
      }
