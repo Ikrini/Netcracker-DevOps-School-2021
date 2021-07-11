@@ -123,7 +123,7 @@ pipeline {
                   withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
 
                   sh ''' 
-                         ./checker_k8s.sh
+#                         ./checker_k8s.sh
                            
                          kubectl get svc
                          kubectl get pods

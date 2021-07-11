@@ -25,7 +25,7 @@ spec:
       volumes:
         - name: config-kuber
           hostPath:
-              path: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+              path: /var/lib/jenkins/workspace/config_k8s.py
   #        persistentVolumeClaim:
   #            claimName: config-kuber-claim
     #   configMap:
