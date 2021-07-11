@@ -15,10 +15,24 @@ spec:
     spec:
       containers:
         - name : telebot
-          image: gcr.io/netcracker-devops/telekuber:latest
+          image: gcr.io/netcracker-devops/telebot
           imagePullPolicy: Always
           ports:
             - containerPort: 80
+          volumeMounts:
+             - name: config-kuber
+               mountPath: /usr/src/app                           
+      volumes:
+        - name: config-kuber
+          hostPath:
+              path: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+  #        persistentVolumeClaim:
+  #            claimName: config-kuber-claim
+    #   configMap:
+    #      name: vol-config-tweetor-api
+      #  volumes:
+      #  - name: conf-kub
+      #   emptyDir: {}
 
 ---
 apiVersion: autoscaling/v2beta1
