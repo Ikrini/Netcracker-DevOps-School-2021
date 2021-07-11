@@ -18,8 +18,8 @@ spec:
           image: gcr.io/netcracker-devops/telebot:latest
           imagePullPolicy: Always
       #    command: [ "/bin/sh", "-c", "cp /var/lib/jenkins/workspace/test_telebot/config_k8s.py /usr/src/app/config_k8s.py" ]
-      #    ports:
-      #      - containerPort: 80
+          ports:
+            - containerPort: 80
       #    volumeMounts:
       #      - name: my-config
       #        mountPath: /usr/src/app/config_k8s.py
