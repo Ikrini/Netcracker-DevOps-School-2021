@@ -69,7 +69,7 @@ pipeline {
 
 //                def filePath = "/var/lib/jankins/workspace/test_telebot/"
 
-//                   sh "./checker.sh"               
+                   sh "./checker.sh"               
                  
                 dir("code") {
 

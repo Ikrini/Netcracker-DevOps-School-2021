@@ -15,17 +15,17 @@ spec:
     spec:
       containers:
         - name : telebot
-          image: gcr.io/netcracker-devops/telebot
+          image: gcr.io/netcracker-devops/telebot:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80
-#          volumeMounts:
- #            - name: config-kuber
-  #             mountPath: /usr/src/app/config_k8s.py                           
-   #   volumes:
-    #    - name: config-kuber
-     #     hostPath:
-      #        path: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+          volumeMounts:
+             - name: config-kuber
+               mountPath: /usr/src/app/config_k8s.py                           
+      volumes:
+        - name: config-kuber
+          hostPath:
+              path: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
   #        persistentVolumeClaim:
   #            claimName: config-kuber-claim
     #   configMap:
