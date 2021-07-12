@@ -1,4 +1,15 @@
-apiVersion : apps/v1
+#apiVersion: v1
+#kind: Secret
+#metadata:
+#  name: my-secret
+#data:
+#  config_k8s.py: |
+  # import os
+ # path_to_dir = os.path.dirname(os.path.abspath(__file__))
+#  token = '1775629243:AAHO7AKdp_944g8nCvR3yKwhdun9A7cfPEs'
+
+---
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: telebot-deployment-autoscaling
@@ -17,17 +28,23 @@ spec:
         - name : telebot
           image: gcr.io/netcracker-devops/telebot:latest
           imagePullPolicy: Always
-      #    command: [ "/bin/sh", "-c", "cp /var/lib/jenkins/workspace/test_telebot/config_k8s.py /usr/src/app/config_k8s.py" ]
           ports:
             - containerPort: 80
-      #    volumeMounts:
-      #      - name: my-config
-      #        mountPath: /usr/src/app/config_k8s.py
-      #volumes:
-      #  - name: my-config
-      #    configMap:
-      #        name: my-config
-      #restartPolicy: Always
+       #   volumeMounts:
+       #     - mountPath: /usr/src/app/
+       #       name: data
+       #     - mountPath: /var/lib/jenkins/workspace/test_telebot/config_k8s.py
+       #       name: config
+       #initContainers:
+       #  - name: copy
+       #   image: gcr.io/netcracker-devops/telebot:latest
+       #   command: ["bash", "-c", "cp /var/lib/jenkins/workspace/test_telebot/config_k8s.py /usr/src/app/config_k8s.py"]
+
+    
+   #   volumes:
+   #     - name: kubersec
+   #       secret:
+   #         secretName: secret-kub
 
 
     #        - mountPath: /usr/src/app/config_k8s.py

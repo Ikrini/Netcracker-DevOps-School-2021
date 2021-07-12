@@ -85,7 +85,7 @@ pipeline {
 #                         docker run --mount type=volume,source=configpy,destination=/usr/src/app                                 
 
                          docker-compose stop
-#                         docker-compose down && docker-compose up -d     
+                         docker-compose down && docker-compose up -d     
                          pwd                
                       '''
 //                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
