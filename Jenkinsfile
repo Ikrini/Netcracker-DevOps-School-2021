@@ -26,8 +26,11 @@ pipeline {
                  withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
                      dir("code") {  
-                                   dockerImage  = docker.build imagename  + ":$BUILD_NUMBER"
-                                   dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
+                                   dockerImage  = docker.build imagename  + ":$BUILD_NUMBER" 
+                     }
+
+                     dir("code-kuber") {
+                                         dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER"
                      }
                  }
         }

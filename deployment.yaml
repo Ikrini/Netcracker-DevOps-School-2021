@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name : telebot
-          image: gcr.io/netcracker-devops/telebot:latest
+          image: gcr.io/netcracker-devops/telekuber:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 80

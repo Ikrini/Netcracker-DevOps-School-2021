@@ -4,7 +4,7 @@ import os
 import json
 
 # # modules
-from config import path_to_dir
+#from config import path_to_dir
 
 
 class TestForJenkins(unittest.TestCase):
