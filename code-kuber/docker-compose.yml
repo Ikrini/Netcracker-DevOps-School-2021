@@ -1,0 +1,26 @@
+# docker-compose.yml
+version: '3'
+
+services:
+ bot:
+   build: .
+   image: gcr.io/netcracker-devops/telebot
+   restart: always
+   ports:
+     # Service will be accessible on the host at port 9090.
+     - "8282:${PORT:-8080}"
+#   imagePullPolicy: Always
+   environment:
+#      - TELEGRAM_BOT_TOKEN=1804011613:AAG1DqIdMqRiwCxgVTL_9kWzbp8ecJC3HmY
+      - TELEGRAM_ADMIN_ID=xxx
+   volumes:
+      - ./src:/src
+      - /var/lib/jenkins/workspace/test_telebot/config.py:/usr/src/app/config.py
+#      - /var/run/docker.sock:/var/run/docker.sock
+   tty: true
+   environment:
+     # /run/docs/reference/container-contract
+     PORT: ${PORT:-8080}
+     K_SERVICE: bot
+     K_REVISION: bot.1
+     K_CONFIGURATION: bot

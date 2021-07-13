@@ -1,12 +1,12 @@
 pipeline {
   environment {
     imagename          = "gcr.io/netcracker-devops/telebot"
-//    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
+    imagenamek         = "gcr.io/netcracker-devops/telekuber"   
     registryCredential = 'my-project-gcr-credentials'
     ConfigPy           =  credentials('config.py')
     Config_k8sPy       =  credentials('config_k8s.py') 
     dockerImage        = ''
-//   dockerImagek       = ''
+    dockerImagek       = ''
     project_name       = "test_telebot"
   }
 
@@ -23,15 +23,13 @@ pipeline {
                 ls -la
                  
                 '''
-//                withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
+                 withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
                      dir("code") {  
-       
-//                     sh "cp ${ConfigPy}  /var/lib/jenkins/workspace/test_telebot/code"    # this is not solution.
-                     dockerImage  = docker.build imagename + ":$BUILD_NUMBER"
-//                     dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
+                                   dockerImage  = docker.build imagename  + ":$BUILD_NUMBER"
+                                   dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER" 
                      }
-//                }
+                 }
         }
       }
     }
@@ -49,10 +47,11 @@ pipeline {
     stage('Continuous Delivery image to GCR') {
         steps {
             script {
-             docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
-                dockerImage.push("$BUILD_NUMBER")
-                dockerImage.push('latest')
-//                dockerImagek.push('latest')
+               docker.withRegistry( 'https://gcr.io', 'gcr:my-project-gcr-credentials') {
+ 
+                      dockerImage.push("$BUILD_NUMBER")
+                      dockerImage.push('latest')
+                      dockerImagek.push('latest')
             }
          }
      }
@@ -67,28 +66,19 @@ pipeline {
 
               withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
 
-//                def filePath = "/var/lib/jankins/workspace/test_telebot/"
-
-//                   sh "./checker.sh"               
+                       sh "./checker.sh"               
                  
-                dir("code") {
+                    dir("code") {
 
-                   sh '''
+                         sh '''
                          pwd
                          ls -la
-                         echo ${WORKSPACE}
-#                         cp ${ConfigPy} /var/lib/jenkins/workspace/test_telebot/
-                         docker ps -a
-#                         docker container stop configpy 
-#                         docker rm configpy    
-#                         docker run -d -v /var/lib/jenkins/config.py:/usr/src/app/config.py --name configpy  gcr.io/netcracker-devops/telebot                         
-#                         docker run --mount type=volume,source=configpy,destination=/usr/src/app                                 
-
+                         echo ${WORKSPACE}                                 
                          docker-compose stop
                          docker-compose down && docker-compose up -d     
                          pwd                
-                      '''
-//                   env.IS_NEW_VERSION = sh (returnStdout: true, script: "[ '${env.DEPLOY_VERSION}' ] && echo 'YES'").trim()
+                            '''
+
                 }
               }
            }
@@ -102,15 +92,14 @@ pipeline {
 
             dir("code") {
               
-//                 sh "python3 ./tests.py"
+                 sh "python3 ./tests.py"
 //               sh "./tests.py"          
 
             }
 
-//            sh /var/lib/jenkins/workspace/test_telebot/code/tests.sh
-            echo "end of Stage Test"
-            sh "pwd"
-            sh "ls -la"
+                echo "end of Stage Test"
+                sh "pwd"
+                sh "ls -la"
         }
     }
    
@@ -126,6 +115,7 @@ pipeline {
                          ./checker_k8s.sh
                            
                          kubectl get svc
+                         kubectl get deploy
                          kubectl get pods
                          kubectl apply -f deployment.yaml
                          kubectl get svc
