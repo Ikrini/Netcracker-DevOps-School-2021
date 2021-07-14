@@ -136,9 +136,13 @@ pipeline {
            script{
                    withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
                             string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
-                             
-                             telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:${CHAT_ID})
-                            }
+                        
+                              post { 
+                               always{     
+                                   telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:${CHAT_ID})
+                               }
+                              }  
+                  }
           } 
        } 
     }
