@@ -25,9 +25,13 @@ pipeline {
                 '''
                  withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
-                     dir("code") {  
+                     dir("code") { 
+                                   sh '''
+                                      ./version.sh 
+      
+                                      '''
                                    dockerImage  = docker.build imagename  + ":$BUILD_NUMBER" 
-                     }
+                     }             
 
                      dir("code-kuber") {
                                          sh "ls -la"
@@ -114,23 +118,23 @@ pipeline {
         }
     }
 
-   stage('Push Notification') {
-     steps {  
-       script{
-              withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
-               string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
-                sh '''
-                   cat ${TOKEN}
-                   curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode="HTML" -d text=”<b>Project</b> :
-                   POC \
-                  <b>Branch</b>: master \
-                  <b>Build </b> : OK \
-                  <b>Test suite</b> = Passed"
-                   '''
-             }
-       }
-     }
-   }
+  // stage('Push Notification') {
+  //   steps {  
+  //     script{
+  //            withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+  //             string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
+  //              sh '''
+  //                 cat ${TOKEN}
+  //                 curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode="HTML" -d text=”<b>Project</b> :
+  //                 POC \
+  //                <b>Branch</b>: master \
+  //                <b>Build </b> : OK \
+  //                <b>Test suite</b> = Passed"
+  //                 '''
+  //           }
+  //     }
+  //   }
+  // }
    
   //   stage('Push Notification') {
   //     steps {
