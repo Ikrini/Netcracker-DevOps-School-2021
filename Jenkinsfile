@@ -23,15 +23,13 @@ pipeline {
                 whoami
                 echo $BUILD_NUMBER
                 ls -la
+                ./version.sh
                  
                 '''
                  withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
                      dir("code") { 
-                                   sh '''
-                                      ./version.sh 
-      
-                                      '''
+        
                                    dockerImage  = docker.build imagename  + ":$BUILD_NUMBER" 
                      }             
 
