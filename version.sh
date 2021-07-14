@@ -1,6 +1,6 @@
 #!/bin/sh
 
-VERSION=/home/otherinion/test_telegram_bot/Netcracker-DevOps-school-2021/code/version.txt
+VERSION=/var/lib/jenkins/workspace/test_telebot/code/version.txt
 
 echo ${BUILD_NUMBER}
 
