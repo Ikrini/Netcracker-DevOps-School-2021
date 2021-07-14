@@ -138,7 +138,7 @@ pipeline {
                             string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
                              
                              echo ${TOKEN}
-                             telegramSend(messsage:”test message”,chatId:${CHAT_ID})
+                             telegramSend(messsage:"test message",chatId:${CHAT_ID})
                             }
           } 
        } 
