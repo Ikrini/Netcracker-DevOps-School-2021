@@ -19,7 +19,9 @@ pipeline {
          script {
              sh '''
                 pwd
+                ${BUILD_NUMBER}
                 whoami
+                $BUILD_NUMBER
                 ls -la
                  
                 '''
