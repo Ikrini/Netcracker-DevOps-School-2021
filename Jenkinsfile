@@ -101,12 +101,12 @@ pipeline {
 
             }
  
-//            dir("code-kuber") {
+            dir("code-kuber") {
 
-//                 sh "python3 ./tests.py"
+                 sh "python3 ./tests.py"
 //               sh "./tests.py"
 
-//            }
+            }
 
                 echo "end of Stage Test"
                 sh "pwd"
