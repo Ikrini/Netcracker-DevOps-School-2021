@@ -39,16 +39,15 @@ class BotTelegram(object):
         @self.disp.message_handler(commands=['start', 'help'])
         async def process_help_command(message: types.Message):
             mes = 'Chat bot with training function for DevOps course project\n\n' \
-                  '*Standard command:*\n' \
                   '/start - Beginning of work\n' \
                   '/help - Command help display\n\n' \
-                  '*Bot Settings*:\n' \
+                  '*Bot Settings*:' \
                   '/changelanguage - Change the language of communication\n\n' \
-                  '*Train*:\n' \
+                  '*Train*:' \
                   '/addtraining - Add value for learning\n' \
                   '/training - Start training'
 
-            await message.bot.send_message(message.from_user.id, mes, parse_mode='Markdown')
+            await message.bot.send_message(message.from_user.id, mes, parse_mode= 'Markdown')
 
         @self.disp.message_handler(commands=['changelanguage'])
         async def change_languages(message: types.Message):
