@@ -131,8 +131,8 @@ pipeline {
   //   }
   // }
    
-
-    steps {
+     stage(‘Push Notification’) {
+       steps {
            script{
                    withCredentials([string(credentialsId: ‘telegramToken’, variable: ‘TOKEN’),
                             string(credentialsId: ‘TelegramChatId’, variable: ‘CHAT_ID’)]) {
@@ -141,8 +141,8 @@ pipeline {
                              telegramSend(messsage:”test message”,chatId:${CHAT_ID})
                             }
           } 
+       } 
     }
-
 
 
    stage('Continuous Deploy to K8s / Apply  Kubernetes files') {
