@@ -4,8 +4,8 @@ import os
 import json
 
 # # modules
-#from config import path_to_dir
-path_to_dir = os.path.dirname(os.path.abspath(__file__))
+from config_k8s import path_to_dir
+#path_to_dir = os.path.dirname(os.path.abspath(__file__))
 
 class TestForJenkins(unittest.TestCase):
 
