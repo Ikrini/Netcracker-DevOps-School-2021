@@ -30,7 +30,7 @@ pipeline {
                      }
 
                      dir("code-kuber") {
-                                         sh "ll"
+                                         sh "ls -la"
                                          dockerImagek = docker.build imagenamek + ":$BUILD_NUMBER"
                      }
                  }
