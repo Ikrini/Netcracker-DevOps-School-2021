@@ -114,11 +114,11 @@ pipeline {
         }
     }
 
-  // stage(‘Push Notification’) {
+  // stage('Push Notification') {
   //   steps {  
   //     script{
-  //            withCredentials([string(credentialsId: ‘telegramToken’, variable: ‘TOKEN’),
-  //             string(credentialsId: ‘telegramChatId’, variable: ‘TelegramChatId’)]) {
+  //            withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+  //             string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
   //              sh ”””
   //                 cat ${TOKEN}
   //               curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=”HTML” -d text=”<b>Project</b> : POC \
@@ -131,11 +131,11 @@ pipeline {
   //   }
   // }
    
-     stage(‘Push Notification’) {
+     stage('Push Notification') {
        steps {
            script{
-                   withCredentials([string(credentialsId: ‘telegramToken’, variable: ‘TOKEN’),
-                            string(credentialsId: ‘TelegramChatId’, variable: ‘CHAT_ID’)]) {
+                   withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+                            string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
                              
                              echo ${TOKEN}
                              telegramSend(messsage:”test message”,chatId:${CHAT_ID})
