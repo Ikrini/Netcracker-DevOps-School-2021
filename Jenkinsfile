@@ -125,7 +125,7 @@ pipeline {
                    POC \
                   <b>Branch</b>: master \
                   <b>Build </b> : OK \
-                  <b>Test suite</b> = Passed”
+                  <b>Test suite</b> = Passed"
                    '''
              }
        }
