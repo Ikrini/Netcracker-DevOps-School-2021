@@ -114,38 +114,39 @@ pipeline {
         }
     }
 
-  // stage('Push Notification') {
-  //   steps {  
-  //     script{
-  //            withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
-  //             string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
-  //              sh ”””
-  //                 cat ${TOKEN}
-  //               curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=”HTML” -d text=”<b>Project</b> : POC \
-  //                <b>Branch</b>: master \
-  //                <b>Build </b> : OK \
-  //                <b>Test suite</b> = Passed”
-  //                 ”””
-  //           }
-  //     }
-  //   }
-  // }
+   stage('Push Notification') {
+     steps {  
+       script{
+              withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+               string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
+                sh ”””
+                   cat ${TOKEN}
+                   curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode=”HTML” -d text=”<b>Project</b> :
+                   POC \
+                  <b>Branch</b>: master \
+                  <b>Build </b> : OK \
+                  <b>Test suite</b> = Passed”
+                   ”””
+             }
+       }
+     }
+   }
    
-     stage('Push Notification') {
-       steps {
-           script{
-                   withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
-                            string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
-                        
-                              post { 
-                               always{     
-                                   telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:${CHAT_ID})
-                               }
-                              }  
-                  }
-          } 
-       } 
-    }
+  //   stage('Push Notification') {
+  //     steps {
+  //         script{
+  //                 withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
+  //                          string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
+  //                      
+  //                            post { 
+  //                             always{     
+  //                                 telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:${CHAT_ID})
+  //                             }
+  //                            }  
+  //                }
+  //        } 
+  //     } 
+  //  }
 
 
    stage('Continuous Deploy to K8s / Apply  Kubernetes files') {
