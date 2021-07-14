@@ -137,8 +137,7 @@ pipeline {
                    withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
                             string(credentialsId: 'TelegramChatId', variable: 'CHAT_ID')]) {
                              
-                             echo ${TOKEN}
-                             telegramSend(messsage:"test message",chatId:${CHAT_ID})
+                             telegramSend(message:'${PROJECT_NAME}:${BUILD_STATUS}',chatId:${CHAT_ID})
                             }
           } 
        } 
