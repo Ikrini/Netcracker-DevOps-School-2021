@@ -19,9 +19,9 @@ pipeline {
          script {
              sh '''
                 pwd
-                ${BUILD_NUMBER}
+                echo ${BUILD_NUMBER}
                 whoami
-                $BUILD_NUMBER
+                echo $BUILD_NUMBER
                 ls -la
                  
                 '''
