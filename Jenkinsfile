@@ -24,7 +24,7 @@ pipeline {
                 echo $BUILD_NUMBER
                 ls -la
                 ./version.sh
-                 
+                ./version_k8s.sh 
                 '''
                  withCredentials([file(credentialsId: 'config.py', variable: 'FILE')]) {
                    
