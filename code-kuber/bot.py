@@ -37,10 +37,10 @@ def _get_version() -> str:
     """
 
     try:
-        with open('version.txt', 'r') as file:
+        with open('version_k8s.txt', 'r') as file:
             result = file.read()
     except FileNotFoundError:
-        with open('version_k8s.txt', 'r') as file:
+        with open('version.txt', 'r') as file:
             result = file.read()
 
     return result
