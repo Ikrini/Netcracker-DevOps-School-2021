@@ -63,6 +63,28 @@ class ChatBot(object):
         message = message[:-2]
         return message
 
+    def get_training(self) -> list:
+        """
+        :return: list with elements intense.json
+        """
+
+        result = []
+        languages = self.full_intents.keys()
+        for language in languages:
+            result.append(f'{language}:\n')
+            elements = language[language]['intents']
+            for element in elements:
+                mes = f"tag: {element['tag']}\n"
+                for pattern in element['patterns']:
+                    mes += f"{pattern}, "
+                mes = mes[:-2]
+                for response in element['responses']:
+                    mes += f"{response}, "
+                mes = mes[:-2]
+                result.append(mes)
+
+
+
     def add_training(self, message: str) -> str:
         """
         :param message: string like <language> : <tag> : <pat or res (pat - pattern, res - response)> : <text>
