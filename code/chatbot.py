@@ -70,17 +70,20 @@ class ChatBot(object):
 
         result = []
         languages = self.full_intents.keys()
-        for language in languages:
-            result.append(f'{language}:\n')
-            elements = language[language]['intents']
+        for i, language in enumerate(languages):
+            if i == 0:
+                result.append(f'{language}:\n')
+            else:
+                result.append(f'\n{language}:\n')
+            elements = self.full_intents[language]['intents']
             for element in elements:
-                mes = f"tag: {element['tag']}\n"
+                mes = f"tag: {element['tag']}\npatterns: "
                 for pattern in element['patterns']:
-                    mes += f"{pattern}, "
-                mes = mes[:-2]
+                    mes += f"\"{pattern}\", "
+                mes = f'{mes[:-2]}\nresponse: '
                 for response in element['responses']:
-                    mes += f"{response}, "
-                mes = mes[:-2]
+                    mes += f"\"{response}\", "
+                mes = f'{mes[:-2]}\n'
                 result.append(mes)
 
         return result

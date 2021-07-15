@@ -36,8 +36,12 @@ def _get_version() -> str:
     :return: bot version
     """
 
-    with open('version.txt', 'r') as file:
-        result = file.read()
+    try:
+        with open('version.txt', 'r') as file:
+            result = file.read()
+    except FileNotFoundError:
+        with open('version_k8s.txt', 'r') as file:
+            result = file.read()
 
     return result
 
@@ -94,6 +98,7 @@ class BotTelegram(object):
             """
             Show intense.json
             """
+
             message_arr = self.chat_bot.get_training()
 
             mes = ''
@@ -122,8 +127,6 @@ class BotTelegram(object):
             if send:
                 if mes != '':
                     await self.bot.send_message(message.from_user.id, mes)
-
-            await self.bot.send_message(message.from_user.id, mes)
 
         @self.disp.message_handler(commands=['addtraining'])
         async def add_training(message: types.Message):
