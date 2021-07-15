@@ -10,6 +10,8 @@ from aiogram.dispatcher import FSMContext
 from aiogram.dispatcher.filters.state import State, StatesGroup
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
 
+from time import sleep
+
 
 # # our module
 # telegram's api token
@@ -54,17 +56,19 @@ class BotTelegram(object):
             mes = 'Chat bot with training function for DevOps course project\n\n' \
                   '*Standard command:*\n' \
                   '/start - Beginning of work\n' \
-                  '/help - Command help display\n\n' \
+                  '/help - Command help display\n' \
+                  '/version - Shows the bot version\n\n' \
                   '*Bot Settings*:\n' \
                   '/changelanguage - Change the language of communication\n\n' \
                   '*Train*:\n' \
+                  '/showtraining - Show content intense.json\n' \
                   '/addtraining - Add value for learning\n' \
                   '/training - Start training'
 
             await message.bot.send_message(message.from_user.id, mes, parse_mode='Markdown')
 
         @self.disp.message_handler(commands=['version'])
-        async def process_help_command(message: types.Message):
+        async def show_version_command(message: types.Message):
             mes = f'Bot version: {self.version}'
 
             await message.bot.send_message(message.from_user.id, mes)
@@ -84,6 +88,42 @@ class BotTelegram(object):
         async def enter_language(message: types.Message, state: FSMContext):
             await self.bot.send_message(message.from_user.id, self.chat_bot.change_language(message.text))
             await state.finish()
+
+        @self.disp.message_handler(commands=['showtraining'])
+        async def show_training(message: types.Message):
+            """
+            Show intense.json
+            """
+            message_arr = self.chat_bot.get_training()
+
+            mes = ''
+            length = len(mes)
+            i = 0
+            end = False
+            send = True  # if it did not go beyond the limits
+            for elem in message_arr:
+                # limit on the number of messages per second
+                if end and i % 15 == 0 and i != 0:
+                    end = False
+                    sleep(3)
+                len_mes = len(elem)
+                # limit on characters per message
+                if len_mes + length < 4096:
+                    mes += elem
+                    length += len_mes
+                else:
+                    send = False
+                    end = True
+                    i += 1
+
+                    await self.bot.send_message(message.from_user.id, mes)
+                    mes = ''
+                    length = 0
+            if send:
+                if mes != '':
+                    await self.bot.send_message(message.from_user.id, mes)
+
+            await self.bot.send_message(message.from_user.id, mes)
 
         @self.disp.message_handler(commands=['addtraining'])
         async def add_training(message: types.Message):
