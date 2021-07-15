@@ -83,7 +83,7 @@ class ChatBot(object):
                 mes = mes[:-2]
                 result.append(mes)
 
-
+        return result
 
     def add_training(self, message: str) -> str:
         """
