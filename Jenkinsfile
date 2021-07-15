@@ -159,7 +159,7 @@ pipeline {
  
                withCredentials([file(credentialsId: 'config_k8s.py', variable: 'FILE')]) {                     
                 
-                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
+                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://34.67.224.45']) {
 
                   sh ''' 
                          ./checker_k8s.sh
