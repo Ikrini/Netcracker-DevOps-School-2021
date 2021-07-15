@@ -118,23 +118,6 @@ pipeline {
         }
     }
 
-  // stage('Push Notification') {
-  //   steps {  
-  //     script{
-  //            withCredentials([string(credentialsId: 'telegramToken', variable: 'TOKEN'),
-  //             string(credentialsId: 'telegramChatId', variable: 'TelegramChatId')]) {
-  //              sh '''
-  //                 cat ${TOKEN}
-  //                 curl -s -X POST https://api.telegram.org/bot${TOKEN}/sendMessage -d chat_id=${CHAT_ID} -d parse_mode="HTML" -d text=”<b>Project</b> :
-  //                 POC \
-  //                <b>Branch</b>: master \
-  //                <b>Build </b> : OK \
-  //                <b>Test suite</b> = Passed"
-  //                 '''
-  //           }
-  //     }
-  //   }
-  // }
    
   //   stage('Push Notification') {
   //     steps {
@@ -159,7 +142,7 @@ pipeline {
  
                withCredentials([file(credentialsId: 'config_k8s.py', variable: 'FILE')]) {                     
                 
-                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://34.67.224.45']) {
+                  withKubeConfig([credentialsId: 'netcracker-devops', serverUrl: 'https://35.193.165.173']) {
 
                   sh ''' 
                          ./checker_k8s.sh
