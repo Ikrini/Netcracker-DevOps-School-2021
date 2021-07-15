@@ -28,9 +28,22 @@ class FormTraining(StatesGroup):
     training = State()
 
 
+def _get_version() -> str:
+    """
+    get version from version.txt
+    :return: bot version
+    """
+
+    with open('version.txt', 'r') as file:
+        result = file.read()
+
+    return result
+
+
 class BotTelegram(object):
 
     def __init__(self):
+        self.version = _get_version()
         self.bot = Bot(token=token)
         self.disp = Dispatcher(self.bot, storage=MemoryStorage())
 
@@ -49,6 +62,12 @@ class BotTelegram(object):
                   '/training - Start training'
 
             await message.bot.send_message(message.from_user.id, mes, parse_mode='Markdown')
+
+        @self.disp.message_handler(commands=['version'])
+        async def process_help_command(message: types.Message):
+            mes = f'Bot version: {self.version}'
+
+            await message.bot.send_message(message.from_user.id, mes)
 
         @self.disp.message_handler(commands=['changelanguage'])
         async def change_languages(message: types.Message):
